@@ -1,8 +1,5 @@
 function Task(func) {
     this.func = func;
-    this.execute = function(){
-        this.func();
-    }
 }
 
 function sum2() {
@@ -10,4 +7,4 @@ function sum2() {
 }
 
 var mytask = new Task(sum2);
-alert('I am' + mytask.execute());
+alert('I am' + mytask.func());
