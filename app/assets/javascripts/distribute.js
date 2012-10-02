@@ -19,11 +19,13 @@ function run_task() {
 
 function post_result(result) {
     // assume result is dict for now
-    result["distributed_task_id"] = distributed_task_id;
+    data = {};
+    data["result"] = JSON.stringify(result);
+    data["distributed_task_id"] = distributed_task_id;
     $.ajax({
         type: 'POST',
         url: 'tasks/result',
-        data: result,
+        data: data,
     });
 }
 

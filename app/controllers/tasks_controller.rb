@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   def result
     puts params
     task = Task.find_by_id(params[:distributed_task_id])
-    task.result = params
+    task.result = params[:result]
     render :nothing => true
   end
 end

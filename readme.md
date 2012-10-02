@@ -14,15 +14,9 @@
   is a non-goal for now)
 
 ### Todo
-- given js functions, distribute them to clients
-- allow someone to add function to queue
-- store queue somewhere
-- store results somewhere
 - handle locking?
 - allow for parameters to be passed in
-
 - Distribute.js needs to be updated to get the next task from server
   once the results make it back successfully
-- Controller needs to grab task from model instead of directly from
-  folder
+- Results need to be flattened into JSON before coming back
   
