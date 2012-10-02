@@ -2,6 +2,11 @@
 
 ## Distributes tasks to multiple browsers
 
+### Usage
+- Provide tasks.js files in app/tasks
+- task*.js must define `var nextTask = new Task(main_function_name)`
+- `main_function_name` *must* return a dictionary
+
 ### Goals
 - browsers execute arbitrary tasks and return results to browser
 - server manages queue. from db?

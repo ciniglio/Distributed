@@ -1,8 +1,14 @@
-alert("Task1!");
+function Car() {
+    this.wheels = 4;
+    this.say = function() {
+        alert('this is a car');
+    };
+};
 
+function mustang() {
+    var c = new Car();
+    return {"car_wheels": c.wheels,
+            "car_name": "Mustang"};
+};
 
-function sum2() {
-    return 1+1;
-}
-
-var nextTask = new Task(sum2);
+var nextTask = new Task(mustang);
