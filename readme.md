@@ -20,3 +20,9 @@
 - store results somewhere
 - handle locking?
 - allow for parameters to be passed in
+
+- Distribute.js needs to be updated to get the next task from server
+  once the results make it back successfully
+- Controller needs to grab task from model instead of directly from
+  folder
+  
