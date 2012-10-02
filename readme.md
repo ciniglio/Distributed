@@ -16,7 +16,5 @@
 ### Todo
 - handle locking?
 - allow for parameters to be passed in
-- Distribute.js needs to be updated to get the next task from server
-  once the results make it back successfully
-- Results need to be flattened into JSON before coming back
+- Require verification randomly
   

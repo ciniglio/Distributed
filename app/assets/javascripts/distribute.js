@@ -26,6 +26,7 @@ function post_result(result) {
         type: 'POST',
         url: 'tasks/result',
         data: data,
+        success: get_new_task,
     });
 }
 
