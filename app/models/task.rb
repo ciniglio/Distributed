@@ -18,6 +18,7 @@ class Task < ActiveRecord::Base
 
   def result(result)
     self.result = result.to_json
+    self.finished = true if result
     self.save
   end
 
