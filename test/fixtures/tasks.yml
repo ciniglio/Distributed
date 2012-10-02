@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  filename: MyString
+  distributed: false
+  finished: false
+  result: MyText
+
+two:
+  name: MyString
+  filename: MyString
+  distributed: false
+  finished: false
+  result: MyText
