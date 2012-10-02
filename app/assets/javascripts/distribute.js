@@ -43,11 +43,16 @@ function main() {
     get_new_task();
 }
 
+function wait_then_get_new_task(){
+    window.setTimeout(get_new_task, 10000);
+}
+
 // call url to get new task
 function get_new_task(){
     $.ajax({
         url: 'tasks/next',
         success: success,
+        error: wait_then_get_new_task,
         datatype: "script",
     });
 };
