@@ -12,9 +12,9 @@ class Task < ActiveRecord::Base
 
   def result=(result)
     if result
-      @result = result.to_json
-      @finished = true
-      self.save
+      write_attribute(:result, result.to_json)
+      write_attribute(:finished, true)
+      save
     end
   end
 
@@ -31,10 +31,11 @@ class Task < ActiveRecord::Base
   end
 
   def self.clean_up_tasks
-    unfinished_tasks = Task.where(:distributed => true,
-                                  :finished => false,
-                                  :updated_at =>
-                                        (Time.now - 15.minutes)..Time.now)
+    unfinished_tasks =
+      Task.where("updated_at <= ?",
+                 Time.now - 15.minutes).where(
+                                              :distributed => true,
+                                              :finished => false)
 
     for task in unfinished_tasks
       task.finished = false
