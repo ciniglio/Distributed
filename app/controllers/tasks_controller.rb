@@ -1,12 +1,9 @@
 class TasksController < ApplicationController
-  TaskRoot = "#{Rails.root}/app/tasks"
   def next
-    tasks = Dir.glob("#{TaskRoot}/task*.js*")
-    size = tasks.length
-    task = tasks[rand(size)]
+    task = Task.distribute_task
     puts task
     @message = 'alejandro'
-    render :file => task
+    render :file => task.filename
   end
 
   def result

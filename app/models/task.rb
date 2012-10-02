@@ -1,13 +1,7 @@
 class Task < ActiveRecord::Base
-  attr_accessible :name, :filename
-  attr_accessor :distributed, :filename, :finished, :name, :result
+  attr_accessible :distributed, :filename, :finished, :name, :result
 
-  before_save :default_values
-
-  def self.next_ready_task
-    clean_up_tasks
-    task = Task.where(:distributed => false).limit(1)
-  end
+  before_create :default_values
 
   def self.distribute_task
     task = self.next_ready_task
@@ -16,13 +10,19 @@ class Task < ActiveRecord::Base
     return task
   end
 
-  def result(result)
-    self.result = result.to_json
-    self.finished = true if result
-    self.save
+  def result=(result)
+    if result
+      @result = result.to_json
+      @finished = true
+      self.save
+    end
   end
 
   private
+  def self.next_ready_task
+    clean_up_tasks
+    task = Task.where(:distributed => false).first
+  end
 
   def default_values
     self.distributed = false
@@ -33,7 +33,7 @@ class Task < ActiveRecord::Base
   def self.clean_up_tasks
     unfinished_tasks = Task.where(:distributed => true,
                                   :finished => false,
-                                  :modified_at =>
+                                  :updated_at =>
                                         (Time.now - 15.minutes)..Time.now)
 
     for task in unfinished_tasks
