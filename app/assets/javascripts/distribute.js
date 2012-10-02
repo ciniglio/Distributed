@@ -11,6 +11,12 @@ alert('I am' + mytask.func());
 
 function success() {
     alert ('success');
+    var result = nextTask.func();
+    $.ajax({
+        type: 'POST',
+        url: 'tasks/result',
+        data: result,
+    });
 }
 
 function failure() {
@@ -21,6 +27,7 @@ function failure() {
 $.ajax({
     url: 'tasks/next',
     success: success,
+    datatype: "script",
 });
 
 

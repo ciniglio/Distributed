@@ -10,6 +10,7 @@ Distributed::Application.routes.draw do
   #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
   match 'tasks/next' => 'tasks#next', :as => :next_task
+  match 'tasks/result' => 'tasks#result', :as => :task_result
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
 
