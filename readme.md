@@ -1,4 +1,4 @@
-# Distributed JS
+# Distribute.JS
 
 ## Distributes tasks to multiple browsers
 

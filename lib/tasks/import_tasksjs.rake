@@ -15,6 +15,17 @@ namespace :tasksjs do
     Rake::Task["tasksjs:add_all_to_db"].invoke
   end
 
+  desc "Repeatedly insert tasks :arg times"
+  task :repeated, [:times] => :environment do |t, args|
+    Rake::Task["tasksjs:init"].invoke
+    args.with_defaults(:times => 100)
+    puts "Running #{args[:times]}"
+    repeat = Integer(args[:times])
+    repeat.times do
+      Rake::Task["tasksjs:add_all_to_db"].execute
+    end
+  end
+
   desc "Mark unfinished tasks as new"
   task :cleanup => :environment do
     Task.clean_up_tasks
