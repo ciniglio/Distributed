@@ -1,11 +1,11 @@
-# Distribute.JS
+# Distribute
 
 ## Distributes tasks to multiple browsers 
 
 Inspired by projects like folding@home and SETI@home, this is a
-framework that allows the server to distribute tasks to its clients
-(browsers). This is best suited for highly parallelizeable tasks such
-as monte-carlo simulations or other
+framework on top of Rails that allows the server to distribute tasks
+to its clients (browsers). This is best suited for highly
+parallelizeable tasks such as monte-carlo simulations or other
 [embarassingly parallel problems](http://en.wikipedia.org/wiki/Embarrassingly_parallel).
 
 ### Usage
@@ -23,7 +23,7 @@ Some tasks (e.g. random generations) are not well suited for
 verification. For these tasks, the `rake tasksjs:repeated` command
 takes an additional argument to omit verification.
 
-#### Rakefile
+### Rakefile
 A Rakefile has been provided to make some common tasks easier. The
 namespace is `tasksjs`.
 
@@ -40,7 +40,7 @@ namespace is `tasksjs`.
   argument to disable verification. If you want verification to be
   disabled, you should pass "true".
 
-##### Parameters 
+#### Parameters 
 The `parameters_task*.txt` file is expected to have
 all the needed comma separated parameters on one line. This will then
 be applied to the function in `task*.txt`, once for every line. 
@@ -55,6 +55,11 @@ will result in two tasks being added to the queue:
 - `task*.js` with args `0, "james", "sally"`
 - `task*.js` with args `5, "john", "jerry"`
 
+### Examples
+An `examples` folder has been provided in `app/tasks`. These _simple_
+examples can be moved into `app/tasks` if you'd like to use them. Some
+have parameters, others need to have verification disabled (monte
+carlo). 
 
 ### Initial Goals
 - browsers execute arbitrary tasks and return results to browser
