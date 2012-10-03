@@ -1,5 +1,6 @@
 class Task < ActiveRecord::Base
-  attr_accessible :distributed, :filename, :finished, :name, :result, :verified
+  attr_accessible :distributed, :filename, :parameters
+  attr_accessible :finished, :name, :result, :verified
 
   before_create :default_values
 
