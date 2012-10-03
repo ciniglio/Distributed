@@ -1,8 +1,9 @@
 class TasksController < ApplicationController
   def next
     @task = Task.distribute_task
-    render file: "#{Rails.root}/app/tasks/distributed_task.js",
-           handlers: [:erb, :js]
+    render file: "#{Rails.root}/app/tasks/distributed_task",
+           handlers: [:erb, :js],
+           formats: [:js]
   end
 
   def result

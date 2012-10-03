@@ -15,6 +15,5 @@
 
 ### Todo
 - allow for parameters to be passed in
-- Allow rake task to generate multiple entries of same task
 - Allow for validation to be blocked
 - Allow rake task to generate parameters.

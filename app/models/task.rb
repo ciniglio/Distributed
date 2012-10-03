@@ -10,8 +10,12 @@ class Task < ActiveRecord::Base
     # the other 90% of the time, take a task from the queue
     else
       task = self.next_ready_task
-      task.distributed = true
-      task.save
+      if !task
+        task = self.next_verification_task
+      else
+        task.distributed = true
+        task.save
+      end
     end
     return task
   end
