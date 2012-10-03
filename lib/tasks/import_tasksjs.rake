@@ -3,7 +3,7 @@ TASK_ROOT = "#{Rails.root}/app/tasks"
 namespace :tasksjs do
   desc "Collect tasks in app/tasks and add them to db"
   task :add_all_to_db => :environment do
-    js_tasks = Dir.glob("#{task_root}/task*.js*")
+    js_tasks = Dir.glob("#{TASK_ROOT}/task*.js*")
     for js_task in js_tasks
       parameters = get_parameters_for_js_task(js_task)
       begin
