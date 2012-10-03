@@ -64,13 +64,12 @@ class Task < ActiveRecord::Base
     q = Task.where(:distributed => true,
                    :finished => true,
                    :verified => false)
-    q.offset(rand(q.count)).first
+    return q.offset(rand(q.count)).first || self.next_ready_task
   end
 
   def default_values
     self.distributed = false
     self.finished = false
-    self.verified = false
     self.result = nil
   end
 
