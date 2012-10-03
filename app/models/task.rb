@@ -4,8 +4,10 @@ class Task < ActiveRecord::Base
   before_create :default_values
 
   def self.distribute_task
+    # 10% of the time, verify an already completed task
     if Random.rand(10) == 0
       task = self.next_verification_task
+    # the other 90% of the time, take a task from the queue
     else
       task = self.next_ready_task
       task.distributed = true
@@ -16,19 +18,29 @@ class Task < ActiveRecord::Base
 
   def result=(result)
     if result and self.result
-      if result == self.result
-        self.verified = true
-        save
-      else
-        self.finished = false
-        self.distributed = false
-        self.verified = false
-        write_attribute(:result, nil)
-        save
-      end
+      verify_result(result)
     elsif result
-      write_attribute(:result, result)
-      self.finished = true
+      add_new_result(result)
+    end
+  end
+
+  def add_new_result(result)
+    # Can't call result= because it will call this function'
+    write_attribute(:result, result)
+    self.finished = true
+    save
+  end
+
+  def verify_result(result)
+    if result == self.result
+      self.verified = true
+      save
+    else
+      self.finished = false
+      self.distributed = false
+      self.verified = false
+      # Can't call result= because it will call this function'
+      write_attribute(:result, nil)
       save
     end
   end
