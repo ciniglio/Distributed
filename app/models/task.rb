@@ -1,19 +1,34 @@
 class Task < ActiveRecord::Base
-  attr_accessible :distributed, :filename, :finished, :name, :result
+  attr_accessible :distributed, :filename, :finished, :name, :result, :verified
 
   before_create :default_values
 
   def self.distribute_task
-    task = self.next_ready_task
-    task.distributed = true
-    task.save
+    if Random.rand(10) == 0
+      task = self.next_verification_task
+    else
+      task = self.next_ready_task
+      task.distributed = true
+      task.save
+    end
     return task
   end
 
   def result=(result)
-    if result
-      write_attribute(:result, result.to_json)
-      write_attribute(:finished, true)
+    if result and self.result
+      if result == self.result
+        self.verified = true
+        save
+      else
+        self.finished = false
+        self.distributed = false
+        self.verified = false
+        write_attribute(:result, nil)
+        save
+      end
+    elsif result
+      write_attribute(:result, result)
+      self.finished = true
       save
     end
   end
@@ -24,9 +39,17 @@ class Task < ActiveRecord::Base
     task = Task.where(:distributed => false).first
   end
 
+  def self.next_verification_task
+    q = Task.where(:distributed => true,
+                   :finished => true,
+                   :verified => false)
+    q.offset(rand(q.count)).first
+  end
+
   def default_values
     self.distributed = false
     self.finished = false
+    self.verified = false
     self.result = nil
   end
 

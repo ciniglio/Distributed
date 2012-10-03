@@ -14,7 +14,5 @@
   is a non-goal for now)
 
 ### Todo
-- handle locking?
 - allow for parameters to be passed in
-- Require verification randomly
   
