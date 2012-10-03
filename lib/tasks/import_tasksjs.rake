@@ -24,7 +24,7 @@ namespace :tasksjs do
   task :repeated, [:times] => :environment do |t, args|
     Rake::Task["tasksjs:init"].invoke
     args.with_defaults(:times => 100)
-    puts "Running #{args[:times]}"
+    puts "Running #{args[:times]} times"
     repeat = Integer(args[:times])
     repeat.times do
       Rake::Task["tasksjs:add_all_to_db"].execute
