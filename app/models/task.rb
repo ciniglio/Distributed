@@ -21,6 +21,10 @@ class Task < ActiveRecord::Base
     return task
   end
 
+  def parameters=(parameters)
+    write_attribute(:parameters, "[#{parameters}]")
+  end
+
   def result=(result)
     if result and self.result
       verify_result(result)

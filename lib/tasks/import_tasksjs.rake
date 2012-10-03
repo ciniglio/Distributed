@@ -1,11 +1,16 @@
+TASK_ROOT = "#{Rails.root}/app/tasks"
+
 namespace :tasksjs do
   desc "Collect tasks in app/tasks and add them to db"
   task :add_all_to_db => :environment do
-    task_root = "#{Rails.root}/app/tasks"
     js_tasks = Dir.glob("#{task_root}/task*.js*")
     for js_task in js_tasks
-      Task.create!( name: js_task,
-                    filename: js_task)
+      parameters = get_parameters_for_js_task(js_task)
+      begin
+        Task.create!( name: js_task,
+                      filename: js_task,
+                      parameters: parameters.pop)
+      end while !parameters.empty?
     end
   end
 
@@ -30,4 +35,17 @@ namespace :tasksjs do
   task :cleanup => :environment do
     Task.clean_up_tasks
   end
+end
+
+def get_parameters_for_js_task(js_task)
+  base_name = File.basename(js_task, ".*")
+  parameters_files = Dir.glob("#{TASK_ROOT}/parameters_#{base_name}.*")
+  parameters = []
+  for filename in parameters_files
+    file = File.open(filename, 'r')
+    file.each do |line|
+      parameters << line.squish
+    end
+  end
+  return parameters
 end

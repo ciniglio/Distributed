@@ -14,11 +14,10 @@ function run_task_and_post_result(){
 };
 
 function run_task() {
-    return nextTask.func.call({}, distributed_parameters);
+    return nextTask.func.apply({}, distributed_parameters);
 }
 
 function post_result(result) {
-    // assume result is dict for now
     data = {};
     data["result"] = JSON.stringify(result);
     data["distributed_task_id"] = distributed_task_id;
@@ -34,9 +33,6 @@ function success() {
     run_task_and_post_result();
 }
 
-function failure() {
-    alert ('failure');
-}
 
 function main() {
     setup();
